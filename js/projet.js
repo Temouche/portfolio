@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     thumbs.forEach((t, i) => {
       t.classList.toggle('ring-2', i === index);
-      t.classList.toggle('ring-white/80', i === index);
+      t.classList.toggle('ring-white', i === index);
+      t.classList.toggle('opacity-100', i === index);
     });
 
     currentIndex = index;
@@ -40,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function openLightbox() {
     lightbox.classList.remove('hidden');
     lightboxCloseBtn.focus();
+    
   }
 
   function closeLightbox() {
