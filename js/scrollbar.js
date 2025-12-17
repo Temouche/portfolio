@@ -1,6 +1,6 @@
+ // Visuel de la scrollbar
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // Gère le visuel de la scrollbar
+
     const style = document.createElement('style');
     style.innerHTML = `
         body.scrollbar-hover::-webkit-scrollbar-thumb { background-color: #ffffff7e !important; }

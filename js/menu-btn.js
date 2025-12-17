@@ -1,6 +1,6 @@
+// Gère l'apparition du bouton menu flottant
 document.addEventListener('DOMContentLoaded', function() {
     
-    // Gère l'apparition du bouton menu flottant
     const menuFlottant = document.getElementById('menuFlottant');
     const navElement = document.querySelector('nav');
     

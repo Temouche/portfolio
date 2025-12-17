@@ -1,3 +1,4 @@
+// Navigation entre les images
 document.addEventListener('DOMContentLoaded', function () {
 
   const mainImg = document.getElementById('carrousel-main');
@@ -11,14 +12,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let currentIndex = 0;
 
-  // initialisation : trouver l'index correspondant à l'image principale si besoin
   function findInitialIndex() {
     const src = mainImg.getAttribute('src');
     const idx = thumbs.findIndex(t => (t.dataset.full || t.src) === src);
     return idx >= 0 ? idx : 0;
   }
 
-  // Met à jour image principale + lightbox
   function updateImage(index) {
     if (thumbs.length === 0) return;
     index = (index + thumbs.length) % thumbs.length;
@@ -30,31 +29,26 @@ document.addEventListener('DOMContentLoaded', function () {
     lightboxImg.src = full;
     lightboxImg.alt = thumb.alt || '';
 
-    // visuel miniatures actif (outline)
     thumbs.forEach((t, i) => {
       t.classList.toggle('ring-2', i === index);
-      t.classList.toggle('ring-white/70', i === index);
+      t.classList.toggle('ring-white/80', i === index);
     });
 
     currentIndex = index;
   }
 
-  // Ouvrir lightbox
   function openLightbox() {
     lightbox.classList.remove('hidden');
     lightboxCloseBtn.focus();
   }
 
-  // Fermer lightbox
   function closeLightbox() {
     lightbox.classList.add('hidden');
   }
 
-  // Initialisation
   currentIndex = findInitialIndex();
   updateImage(currentIndex);
 
-  // Clic sur miniatures
   thumbs.forEach((thumb, i) => {
     thumb.addEventListener('click', function (e) {
       updateImage(i);
@@ -62,9 +56,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Flèches
   btnNext.addEventListener('click', function (e) {
-    e.stopPropagation(); // évite ouverture accidentelle
+    e.stopPropagation();
     updateImage(currentIndex + 1);
   });
 
@@ -73,25 +66,21 @@ document.addEventListener('DOMContentLoaded', function () {
     updateImage(currentIndex - 1);
   });
 
-  // Clic sur image principale -> ouvrir lightbox
   mainImg.addEventListener('click', function (e) {
     openLightbox();
   });
 
-  // Clic sur le fond (lightbox) ferme, mais clique sur l'image ne ferme pas
   lightbox.addEventListener('click', function (e) {
     if (e.target === lightbox || e.target === lightboxCloseBtn) {
       closeLightbox();
     }
   });
 
-  // Bouton close
   lightboxCloseBtn.addEventListener('click', function (e) {
     e.stopPropagation();
     closeLightbox();
   });
 
-  // Navigation clavier : Esc ferme, flèches naviguent
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
       if (!lightbox.classList.contains('hidden')) {
